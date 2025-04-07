@@ -8,7 +8,7 @@ const MainLayout = () => {
       <Navbar className="fixed top-0 left-0 w-full z-50 shadow-md " />
 
       {/* Left Sidebar */}
-      <aside className="fixed left-0 top-16 h-[calc(100vh-4rem)] w-64 bg-white  p-4 shadow-md">
+      <aside className="fixed left-0 top-16 h-[calc(100vh-4rem)] w-72  bg-white  p-4 shadow-md">
         <LeftSide />
       </aside>
 

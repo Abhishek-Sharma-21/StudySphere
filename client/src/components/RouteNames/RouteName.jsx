@@ -1,1 +1,11 @@
 export const RouteIndex = "/";
+export const AISupport = "/ai-support";
+export const dashboardPage = "/dashboard";
+export const communityPostDetail = `/community/:postId`;
+export const CreateCommunityPosts = "/community/create";
+export const FeaturePage = "/feature";
+export const ContactPage = "/contact";
+export const AboutPage = "/about";
+export const SignUpPage = "/signup";
+export const LoginPage = "/login";
+export const VerifyEmailPage = "/verify-email";
