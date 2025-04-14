@@ -1,6 +1,6 @@
 const AboutUs = () => {
   return (
-    <div className="max-w-4xl mx-auto px-6 py-12">
+    <div className="max-w-4xl mx-auto font-quicksand px-6 py-12">
       <h2 className="text-4xl font-bold text-center mb-8">About StudySphere</h2>
 
       <p className="text-gray-700 text-lg mb-10 text-center">

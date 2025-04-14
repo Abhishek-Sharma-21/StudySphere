@@ -1,20 +1,57 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaEnvelope, FaLock } from "react-icons/fa";
-import { Link } from "react-router-dom";
-import { SignUpPage } from "../../components/RouteNames/RouteName";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  ForgotPasswordPage,
+  RouteIndex,
+  SignUpPage,
+} from "../../components/RouteNames/RouteName";
+import toast, { Toaster } from "react-hot-toast";
 import { Loader } from "lucide-react";
+import { useDispatch, useSelector } from "react-redux";
+import { resetError, signIn } from "../../features/authSlice";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const loading = false;
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
+  const { isLoading, isError, errorMessage, isAuthenticated } = useSelector(
+    (state) => state.auth
+  );
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const body = { email, password };
+    dispatch(signIn(body)); // Dispatch the action
+  };
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      setEmail("");
+      setPassword("");
+      navigate(RouteIndex);
+      toast.success("Login successful!"); // Show success message
+    }
+  }, [isAuthenticated, navigate]); // Monitor isAuthenticated for redirection
+
+  useEffect(() => {
+    if (isError && errorMessage) {
+      const message =
+        typeof errorMessage === "string"
+          ? errorMessage
+          : "Something went wrong. Please try again.";
+      toast.error(message);
+      dispatch(resetError()); // Reset the error state
+    }
+  }, [isError, errorMessage, dispatch]);
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-black to-zinc-400 p-4">
       <div className="bg-white/10 backdrop-blur-md rounded-xl shadow-lg p-8 w-full max-w-md text-white">
         <h2 className="text-3xl font-bold text-center mb-6">Welcome Back</h2>
 
-        <form className="flex flex-col gap-4">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           {/* Email Field */}
           <div className="flex items-center border border-white/20 rounded-lg px-3 py-2">
             <FaEnvelope className="text-zinc-300 mr-3" />
@@ -42,7 +79,7 @@ export default function Login() {
           {/* Forgot Password */}
           <div className="text-right text-sm">
             <Link
-              to="/forgot-password"
+              to={ForgotPasswordPage}
               className="text-zinc-300 hover:underline"
             >
               Forgot password?
@@ -53,9 +90,9 @@ export default function Login() {
           <button
             type="submit"
             className="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 rounded-lg transition"
-            disabled={loading}
+            disabled={isLoading}
           >
-            {loading ? (
+            {isLoading ? (
               <Loader className="h-6 w-6 animate-spin mx-auto" />
             ) : (
               "Login"
@@ -71,6 +108,7 @@ export default function Login() {
           </Link>
         </p>
       </div>
+      <Toaster position="top-right" reverseOrder={false} />
     </div>
   );
 }

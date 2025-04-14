@@ -13,7 +13,10 @@ import {
   AboutPage,
   ContactPage,
   CreateCommunityPosts,
+  DiscussionHomePage,
   FeaturePage,
+  GroupHomePage,
+  ResourceHomepage,
   RouteIndex,
 } from "../RouteNames/RouteName";
 
@@ -33,15 +36,24 @@ const LeftSide = () => {
           <span className="text-gray-800">Home</span>
         </Link>
 
-        <Link className="hover:bg-gray-200 rounded-lg p-2 flex items-center gap-3 transition-all">
+        <Link
+          to={GroupHomePage}
+          className="hover:bg-gray-200 rounded-lg p-2 flex items-center gap-3 transition-all"
+        >
           <MessageSquareText size={18} />
           Groups
         </Link>
-        <Link className="hover:bg-gray-200 rounded-lg p-2 flex items-center gap-3 transition-all">
+        <Link
+          to={DiscussionHomePage}
+          className="hover:bg-gray-200 rounded-lg p-2 flex items-center gap-3 transition-all"
+        >
           <MessageSquare size={18} />
           Discussions
         </Link>
-        <Link className="hover:bg-gray-200 rounded-lg p-2 flex items-center gap-3 transition-all">
+        <Link
+          to={ResourceHomepage}
+          className="hover:bg-gray-200 rounded-lg p-2 flex items-center gap-3 transition-all"
+        >
           <Folder size={18} />
           Resources
         </Link>

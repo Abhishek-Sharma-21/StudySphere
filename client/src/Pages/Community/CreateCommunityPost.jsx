@@ -1,7 +1,9 @@
-import { Link as LinkIcon } from "lucide-react";
+import { Link as LinkIcon, Loader } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { RouteIndex } from "../../components/RouteNames/RouteName";
+import { useDispatch, useSelector } from "react-redux";
+import { createCommunityPost } from "../../features/communityPostSlice";
 
 const CreateCommunityPost = () => {
   const [formData, setFormData] = useState({
@@ -11,6 +13,10 @@ const CreateCommunityPost = () => {
     url: "",
   });
 
+  const token = useSelector((state) => state.auth.user?.token);
+
+  const dispatch = useDispatch();
+  const { loading, error } = useSelector((state) => state.communityPost);
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
@@ -41,7 +47,14 @@ const CreateCommunityPost = () => {
 
     if (validateForm()) {
       console.log("Form submitted:", formData);
+      const body = { token, postData: formData };
       // You can send `formData` to your API here
+      try {
+        const result = dispatch(createCommunityPost(body));
+        console.log("Post created successfully:", result);
+      } catch (error) {
+        console.error("Error submitting form:", error);
+      }
       setFormData({
         title: "",
         shortDescription: "",
@@ -142,10 +155,17 @@ const CreateCommunityPost = () => {
         <button
           type="submit"
           className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg"
+          disabled={loading}
         >
+          {loading ? (
+            <Loader className="w-6 h-6 animate-spin mx-auto" />
+          ) : (
+            "Create"
+          )}{" "}
           Create
         </button>
       </form>
+      {error && <p className="text-red-500 text-sm mt-4">{error}</p>}
     </div>
   );
 };

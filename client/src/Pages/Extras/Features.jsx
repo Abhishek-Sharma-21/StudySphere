@@ -29,7 +29,7 @@ const features = [
 
 const Features = () => {
   return (
-    <div className="max-w-6xl mx-auto px-6 py-12">
+    <div className="max-w-6xl font-inter mx-auto px-6 py-12">
       <h2 className="text-3xl font-bold text-center mb-12">
         Features of StudySphere
       </h2>

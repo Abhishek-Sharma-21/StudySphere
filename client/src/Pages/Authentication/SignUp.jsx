@@ -1,19 +1,23 @@
 import { useState } from "react";
 import { FaUser, FaEnvelope, FaLock } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
-import {
-  LoginPage,
-  VerifyEmailPage,
-} from "../../components/RouteNames/RouteName";
+import { LoginPage, RouteIndex } from "../../components/RouteNames/RouteName";
 import { Loader } from "lucide-react";
+import { useDispatch, useSelector } from "react-redux";
+import { SignUp } from "../../features/authSlice";
 
 export default function Signup() {
+  const dispatch = useDispatch();
+  const { isLoading, isError, errorMessage } = useSelector(
+    (state) => state.auth
+  );
+
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [errors, setErrors] = useState({});
+
   const navigate = useNavigate();
-  const loading = false;
 
   const checkStrength = (password) => {
     return {
@@ -48,19 +52,29 @@ export default function Signup() {
     return Object.keys(newErrors).length === 0; // valid if no errors
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
       //send data to server
-      console.log("Form submitted:", {
-        name,
-        email,
-        password,
-      });
-      setEmail("");
-      setName("");
-      setPassword("");
-      navigate(VerifyEmailPage);
+      const body = {
+        name: name,
+        email: email,
+        password: password,
+      };
+      try {
+        const result = await dispatch(SignUp(body));
+        console.log("Form submitted:", body);
+        if (SignUp.fulfilled.match(result)) {
+          setEmail("");
+          setName("");
+          setPassword("");
+          navigate(RouteIndex);
+        } else {
+          console.log("Signup failed:", result.payload);
+        }
+      } catch (error) {
+        console.error("UnExpected Error:", error);
+      }
     } else {
       console.log("Form has error");
     }
@@ -181,10 +195,10 @@ export default function Signup() {
           <button
             type="submit"
             className="mt-4 bg-green-500 hover:bg-green-600 transition-colors py-2 rounded-md font-semibold"
-            disabled={loading}
+            disabled={isLoading}
           >
-            {loading ? (
-              <Loader className="w-6 h-6 animate-spin max-auto" />
+            {isLoading ? (
+              <Loader className="w-6 h-6 animate-spin mx-auto" />
             ) : (
               "Sign Up"
             )}
@@ -200,6 +214,11 @@ export default function Signup() {
             </Link>
           </p>
         </form>
+        {isError && (
+          <div className="bg-red-100 text-center text-red-700 p-3 mb-4 rounded">
+            {errorMessage || "Something went wrong. Please try again."}
+          </div>
+        )}
       </div>
     </div>
   );
