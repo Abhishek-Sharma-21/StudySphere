@@ -1,11 +1,13 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
+const API_URL = import.meta.env.VITE_BACKEND_URL || import.meta.env.VITE_API_URL || "http://localhost:3000";
+
 //register User With CreateAsyncThunk
 export const SignUp = createAsyncThunk(
   "SignUp",
   async (body, { rejectWithValue }) => {
     try {
-      const response = await fetch(`http://localhost:3000/api/auth/sign-up`, {
+      const response = await fetch(`${API_URL}/api/auth/sign-up`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -17,10 +19,8 @@ export const SignUp = createAsyncThunk(
         return rejectWithValue(errorData.message || "Signup failed");
       }
       const data = await response.json();
-      console.log("Response Data:", data);
       return data;
     } catch (error) {
-      console.error("Error:", error);
       return rejectWithValue(error);
     }
   }
@@ -30,7 +30,7 @@ export const signIn = createAsyncThunk(
   "signIn",
   async (body, { rejectWithValue }) => {
     try {
-      const response = await fetch(`http://localhost:3000/api/auth/login`, {
+      const response = await fetch(`${API_URL}/api/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -42,10 +42,8 @@ export const signIn = createAsyncThunk(
         return rejectWithValue(errorData.message || "Login failed");
       }
       const data = await response.json();
-      console.log("Response Data:", data);
       return data;
     } catch (error) {
-      console.log(error);
       return rejectWithValue(error);
     }
   }
@@ -55,25 +53,20 @@ export const forgetPassword = createAsyncThunk(
   "forgetPassword",
   async (body, { rejectWithValue }) => {
     try {
-      const response = await fetch(
-        `http://localhost:3000/api/forgot-password`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(body),
-        }
-      );
+      const response = await fetch(`${API_URL}/api/forgot-password`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      });
       if (!response.ok) {
         const errorData = await response.json();
         return rejectWithValue(errorData.message || "Forgot password failed");
       }
       const data = await response.json();
-      console.log("Response Data:", data);
       return data;
     } catch (error) {
-      console.log(error);
       return rejectWithValue(error);
     }
   }
@@ -84,7 +77,7 @@ export const resetPassword = createAsyncThunk(
   async (body, { rejectWithValue }) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/api/reset-password/${body.token}`,
+        `${API_URL}/api/reset-password/${body.token}`,
         {
           method: "POST",
           headers: {
@@ -98,11 +91,9 @@ export const resetPassword = createAsyncThunk(
         return rejectWithValue(errorData.message || "Reset password failed");
       } else {
         const data = await response.json();
-        console.log("Response Data:", data);
         return data;
       }
     } catch (error) {
-      console.log(error);
       return rejectWithValue(error);
     }
   }
@@ -112,7 +103,7 @@ export const logoutUser = createAsyncThunk(
   "logoutUser",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await fetch(`http://localhost:3000/api/auth/logout`, {
+      const response = await fetch(`${API_URL}/api/auth/logout`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -126,14 +117,37 @@ export const logoutUser = createAsyncThunk(
       }
 
       const data = await response.json();
-      console.log("Response Data:", data);
-      return data; // <- No extra `)` here
+      return data;
     } catch (error) {
-      console.log(error);
       return rejectWithValue(error);
     }
   }
 );
+
+export const updateUserProfile = createAsyncThunk(
+  "updateUserProfile",
+  async ({ body, token }, { rejectWithValue }) => {
+    try {
+      const response = await fetch(`${API_URL}/api/user/update`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(body),
+      });
+      if (!response.ok) {
+        const errorData = await response.json();
+        return rejectWithValue(errorData.message || "Update profile failed");
+      }
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
 
 //Users initial State
 const initialState = {
@@ -151,13 +165,13 @@ export const authSlice = createSlice({
   reducers: {
     login: (state, action) => {
       state.user = action.payload;
-      state.isAuthenticated = true; // Set isAuthenticated to true on login
-      state.token = action.payload.token; // Store the token
+      state.isAuthenticated = true;
+      state.token = action.payload.token;
     },
     logout: (state) => {
       state.user = null;
       state.isAuthenticated = false;
-      state.token = null; // Clear the token on logout
+      state.token = null;
     },
     resetError: (state) => {
       state.isError = false;
@@ -171,15 +185,15 @@ export const authSlice = createSlice({
         state.isLoading = true;
         state.isError = false;
         state.errorMessage = "";
-        state.isAuthenticated = false; // Initialize or reset auth state
+        state.isAuthenticated = false;
       })
       .addCase(SignUp.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isError = false;
         state.user = action.payload;
-        state.token = action.payload.token; // Store the token
+        state.token = action.payload.token;
         state.errorMessage = "";
-        state.isAuthenticated = true; // Set isAuthenticated on successful signup (if you want auto-login)
+        state.isAuthenticated = true;
       })
       .addCase(SignUp.rejected, (state, action) => {
         state.isLoading = false;
@@ -191,14 +205,14 @@ export const authSlice = createSlice({
         state.isLoading = true;
         state.isError = false;
         state.errorMessage = "";
-        state.isAuthenticated = false; // Initialize or reset auth state
+        state.isAuthenticated = false;
       })
       .addCase(signIn.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isError = false;
         state.user = action.payload;
-        state.token = action.payload.token; // Store the token
-        state.isAuthenticated = true; // <---- SET isAuthenticated TO TRUE ON SUCCESSFUL LOGIN
+        state.token = action.payload.token;
+        state.isAuthenticated = true;
       })
       .addCase(signIn.rejected, (state, action) => {
         state.isLoading = false;
@@ -210,20 +224,17 @@ export const authSlice = createSlice({
         state.isLoading = true;
         state.isError = false;
         state.errorMessage = "";
-        // state.isAuthenticated = state.isAuthenticated; // Keep the current auth state
       })
       .addCase(forgetPassword.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isError = false;
         state.user = action.payload;
         state.errorMessage = "";
-        // state.isAuthenticated = false; // Keep the current auth state
       })
       .addCase(forgetPassword.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.errorMessage = action.payload || "Something went wrong";
-        // state.isAuthenticated = state.isAuthenticated; // Keep the current auth state
       })
       .addCase(resetPassword.pending, (state) => {
         state.isLoading = true;
@@ -250,22 +261,40 @@ export const authSlice = createSlice({
         state.isLoading = false;
         state.isError = false;
         state.token = null;
-        state.user = null; // Clear user data on logout
+        state.user = null;
         state.errorMessage = "";
-        state.isAuthenticated = false; // Set isAuthenticated to false on logout
+        state.isAuthenticated = false;
       })
       .addCase(logoutUser.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.errorMessage = action.payload || "Something went wrong";
-        state.isAuthenticated = false; // Keep the current auth state
+        state.isAuthenticated = false;
+      })
+      .addCase(updateUserProfile.pending, (state) => {
+        state.isLoading = true;
+        state.isError = false;
+      })
+      .addCase(updateUserProfile.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.user = {
+          ...state.user,
+          user: action.payload.user, // The backend returns { user: {...} }
+        };
+        state.isError = false;
+      })
+      .addCase(updateUserProfile.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.errorMessage = action.payload;
       })
       .addCase("persist/REHYDRATE", (state) => {
+
         state.isError = false;
         state.errorMessage = "";
       });
   },
 });
 
-export const { login, logout, resetError } = authSlice.actions; // Export the new action
+export const { login, logout, resetError } = authSlice.actions;
 export default authSlice.reducer;

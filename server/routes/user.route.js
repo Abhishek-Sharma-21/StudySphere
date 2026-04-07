@@ -5,7 +5,9 @@ import {
   logout,
   resetPassword,
   signUp,
+  updateProfile,
 } from "../controller/user.controller.js";
+import { authMiddleware } from "../middlewares/CheckAuthenication.js";
 
 const router = express.Router();
 
@@ -14,5 +16,7 @@ router.post("/auth/login", login);
 router.post("/auth/logout", logout);
 router.post("/forgot-password", forgotPassword);
 router.post("/reset-password/:token", resetPassword);
+router.put("/user/update", authMiddleware, updateProfile);
 
 export default router;
+

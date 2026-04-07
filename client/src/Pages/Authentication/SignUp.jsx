@@ -81,144 +81,156 @@ export default function Signup() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-black to-zinc-700 p-4">
-      <div className="bg-white/10 backdrop-blur-md rounded-xl shadow-lg p-8 w-full max-w-md text-white">
-        <h2 className="text-3xl font-bold text-center mb-6">Create Account</h2>
-
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-          <div className="relative">
-            <FaUser className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-300" />
-            <input
-              type="text"
-              placeholder="Full Name"
-              className={`w-full pl-10 pr-4 py-2 rounded-md bg-white/10 border border-gray-400 focus:border-white focus:outline-none ${
-                errors.name ? "border-red-500" : ""
-              }`}
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-            {errors.name && (
-              <p className="text-red-500 text-sm">{errors.name}</p>
-            )}
+    <div className="min-h-screen flex items-center justify-center bg-[#0a0a0a] p-6 font-quicksand">
+      <div className="relative group w-full max-w-md">
+        <div className="absolute -inset-1 bg-gradient-to-r from-[#ff5e00] to-orange-900 rounded-[2.5rem] blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
+        <div className="relative bg-[#161616] border border-[#262626] rounded-[3rem] shadow-2xl p-10 w-full text-white overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-1 bg-[#ff5e00]"></div>
+          
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-black uppercase tracking-tighter">Initialize <span className="text-[#ff5e00]">Node</span></h2>
+            <p className="text-[10px] font-black text-gray-500 uppercase tracking-[0.4em] mt-2">New Identity Registration</p>
           </div>
 
-          <div className="relative">
-            <FaEnvelope className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-300" />
-            <input
-              type="email"
-              placeholder="Email Address"
-              className={`w-full pl-10 pr-4 py-2 rounded-md bg-white/10 border border-gray-400 focus:border-white focus:outline-none ${
-                errors.email ? "border-red-500" : ""
-              }`}
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            {errors.email && (
-              <p className="text-red-500 text-sm">{errors.email}</p>
-            )}
-          </div>
+          <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+            <div className="space-y-1.5">
+              <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Identity Name</label>
+              <div className="relative">
+                <FaUser className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-600" />
+                <input
+                  type="text"
+                  placeholder="STUDENT IDENTIFIER"
+                  className={`w-full pl-12 pr-4 py-4 rounded-2xl bg-[#0a0a0a] border border-[#262626] focus:border-[#ff5e00]/50 focus:ring-2 focus:ring-[#ff5e00]/20 text-sm font-bold text-white outline-none transition-all placeholder-gray-800 ${
+                    errors.name ? "border-rose-500/50" : ""
+                  }`}
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+                {errors.name && (
+                  <p className="text-rose-500 text-[10px] font-black uppercase tracking-widest mt-1 ml-1">{errors.name}</p>
+                )}
+              </div>
+            </div>
 
-          <div className="relative">
-            <FaLock className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-300" />
-            <input
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className={`w-full pl-10 pr-4 py-2 rounded-md bg-white/10 border border-gray-400 focus:border-white focus:outline-none ${
-                errors.password ? "border-red-500" : ""
-              }`}
-            />
-            {errors.password && (
-              <p className="text-red-500 text-sm">{errors.password}</p>
-            )}
-          </div>
+            <div className="space-y-1.5">
+              <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Digital Signature</label>
+              <div className="relative">
+                <FaEnvelope className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-600" />
+                <input
+                  type="email"
+                  placeholder="USER@NETWORK.COM"
+                  className={`w-full pl-12 pr-4 py-4 rounded-2xl bg-[#0a0a0a] border border-[#262626] focus:border-[#ff5e00]/50 focus:ring-2 focus:ring-[#ff5e00]/20 text-sm font-bold text-white outline-none transition-all placeholder-gray-800 ${
+                    errors.email ? "border-rose-500/50" : ""
+                  }`}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                {errors.email && (
+                  <p className="text-rose-500 text-[10px] font-black uppercase tracking-widest mt-1 ml-1">{errors.email}</p>
+                )}
+              </div>
+            </div>
 
-          {/* Password Strength Bar */}
-          <div className="mt-2">
-            <div className="flex justify-between text-sm text-gray-300 mb-1">
-              <span>Password strength</span>{" "}
-              {password.length === 0 ? (
-                ""
-              ) : !strength.length ? (
-                <span className="text-red-400">Weak</span>
-              ) : !strength.uppercase ? (
-                <span className="text-yellow-600">normal</span>
-              ) : !strength.lowercase ? (
-                <span className="text-green-600">Fair</span>
-              ) : !strength.number ? (
-                <span className="text-green-600">Good</span>
-              ) : !strength.special ? (
-                <span className="text-green-600">Strong</span>
+            <div className="space-y-1.5">
+              <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Security Key</label>
+              <div className="relative">
+                <FaLock className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-600" />
+                <input
+                  type="password"
+                  placeholder="••••••••"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className={`w-full pl-12 pr-4 py-4 rounded-2xl bg-[#0a0a0a] border border-[#262626] focus:border-[#ff5e00]/50 focus:ring-2 focus:ring-[#ff5e00]/20 text-sm font-bold text-white outline-none transition-all placeholder-gray-800 ${
+                    errors.password ? "border-rose-500/50" : ""
+                  }`}
+                />
+                {errors.password && (
+                  <p className="text-rose-500 text-[10px] font-black uppercase tracking-widest mt-1 ml-1">{errors.password}</p>
+                )}
+              </div>
+            </div>
+
+            {/* Password Strength Bar */}
+            <div className="bg-[#0a0a0a] p-4 rounded-2xl border border-[#262626]">
+              <div className="flex justify-between text-[10px] font-black uppercase text-gray-500 mb-2">
+                <span>Entropy Status</span>{" "}
+                {password.length === 0 ? (
+                  ""
+                ) : !strength.length ? (
+                  <span className="text-rose-500">Critical</span>
+                ) : !strength.uppercase ? (
+                  <span className="text-yellow-600">Standard</span>
+                ) : !strength.lowercase ? (
+                  <span className="text-[#ff5e00]">Verified</span>
+                ) : !strength.number ? (
+                  <span className="text-[#ff5e00]">Enhanced</span>
+                ) : !strength.special ? (
+                  <span className="text-emerald-500">Robust</span>
+                ) : (
+                  <span className="text-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.3)]">Maximum</span>
+                )}
+              </div>
+              <div className="h-1 w-full bg-[#1a1a1a] rounded-full overflow-hidden">
+                <div
+                  className={`h-full transition-all duration-700 ${
+                    password.length >= 6 ? "bg-emerald-500" : "bg-rose-500"
+                  }`}
+                  style={{
+                    width: `${
+                      (Object.values(strength).filter(Boolean).length / 5) * 100
+                    }%`,
+                  }}
+                />
+              </div>
+
+              {/* Validation Checklist */}
+              <div className="grid grid-cols-2 gap-x-2 gap-y-1 mt-4">
+                {[
+                  { key: 'length', text: '6+ Char' },
+                  { key: 'uppercase', text: 'Upper Cas' },
+                  { key: 'lowercase', text: 'Lower Cas' },
+                  { key: 'number', text: 'Numeric' },
+                  { key: 'special', text: 'Symbol' }
+                ].map((item) => (
+                  <div key={item.key} className="flex items-center gap-1.5">
+                    <div className={`w-1.5 h-1.5 rounded-full ${strength[item.key] ? "bg-[#ff5e00]" : "bg-gray-800"}`}></div>
+                    <span className={`text-[8px] font-black uppercase tracking-widest ${strength[item.key] ? "text-gray-300" : "text-gray-600"}`}>
+                      {item.text}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Sign Up Button */}
+            <button
+              type="submit"
+              className="mt-4 bg-[#ff5e00] hover:bg-[#e65100] text-white py-5 rounded-2xl font-black text-xs uppercase tracking-widest shadow-xl shadow-orange-900/30 active:scale-95 transition-all disabled:opacity-50"
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin mx-auto" />
               ) : (
-                <span className="text-green-600">Excellent</span>
+                "Establish Linkage"
               )}
+            </button>
+
+            <p className="text-center text-[10px] font-black uppercase tracking-widest mt-2 text-gray-500">
+              Already identified?{" "}
+              <Link
+                to={LoginPage}
+                className="text-[#ff5e00] hover:underline ml-1"
+              >
+                Access Node
+              </Link>
+            </p>
+          </form>
+          {isError && (
+            <div className="mt-6 p-4 bg-rose-500/10 border border-rose-500/30 rounded-xl">
+              <p className="text-rose-500 text-[10px] font-black uppercase tracking-widest text-center">{errorMessage || "Transmission Failure"}</p>
             </div>
-            <div className="h-2 w-full bg-gray-300 rounded-full overflow-hidden">
-              <div
-                className={`h-full ${
-                  password.length >= 6 ? "bg-green-500" : "bg-red-500"
-                }`}
-                style={{
-                  width: `${
-                    (Object.values(strength).filter(Boolean).length / 5) * 100
-                  }%`,
-                }}
-              />
-            </div>
-          </div>
-
-          {/* Validation Checklist */}
-          <div className="text-xs text-gray-300 mt-2 space-y-1">
-            <p className={strength.length ? "text-green-400" : "text-red-400"}>
-              {strength.length ? "✔" : "✘"} At least 6 characters
-            </p>
-            <p
-              className={strength.uppercase ? "text-green-400" : "text-red-400"}
-            >
-              {strength.uppercase ? "✔" : "✘"} Contains uppercase letter
-            </p>
-            <p
-              className={strength.lowercase ? "text-green-400" : "text-red-400"}
-            >
-              {strength.lowercase ? "✔" : "✘"} Contains lowercase letter
-            </p>
-            <p className={strength.number ? "text-green-400" : "text-red-400"}>
-              {strength.number ? "✔" : "✘"} Contains a number
-            </p>
-            <p className={strength.special ? "text-green-400" : "text-red-400"}>
-              {strength.special ? "✔" : "✘"} Contains special character
-            </p>
-          </div>
-
-          {/* Sign Up Button */}
-          <button
-            type="submit"
-            className="mt-4 bg-green-500 hover:bg-green-600 transition-colors py-2 rounded-md font-semibold"
-            disabled={isLoading}
-          >
-            {isLoading ? (
-              <Loader className="w-6 h-6 animate-spin mx-auto" />
-            ) : (
-              "Sign Up"
-            )}
-          </button>
-
-          <p className="text-center text-sm text-gray-300 mt-4">
-            Already have an account?{" "}
-            <Link
-              to={LoginPage}
-              className="underline text-green-400 hover:text-green-500"
-            >
-              Log in
-            </Link>
-          </p>
-        </form>
-        {isError && (
-          <div className="bg-red-100 text-center text-red-700 p-3 mb-4 rounded">
-            {errorMessage || "Something went wrong. Please try again."}
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </div>
   );

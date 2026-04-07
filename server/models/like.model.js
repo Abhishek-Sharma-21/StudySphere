@@ -11,6 +11,9 @@ const likeSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now }, // Timestamp when the like was created
 });
 
+// Unique index to prevent duplicate likes
+likeSchema.index({ postId: 1, userId: 1 }, { unique: true });
+
 // Create the Like model
 const Like = mongoose.model("Like", likeSchema);
 

@@ -26,69 +26,79 @@ const LeftSide = () => {
     navigate(CreateCommunityPosts);
   };
   return (
-    <div className="flex flex-col gap-6 p-4 w-60  overflow-y-auto font-nunito">
-      <div className="flex flex-col gap-2 text-gray-800 font-semibold ml-14">
+    <div className="flex flex-col gap-6 w-full font-quicksand">
+      <div className="flex flex-col gap-1.5 px-2">
+        <label className="text-[10px] font-black text-gray-500 uppercase tracking-[0.2em] mb-2 ml-4">Main Menu</label>
+        
         <Link
           to={RouteIndex}
-          className="hover:bg-gray-200 rounded-lg p-2 flex items-center gap-3 transition-all"
+          className="group hover:bg-[#1e1e1e] rounded-xl p-3 flex items-center gap-3 transition-all border border-transparent hover:border-[#262626]"
         >
-          <House size={18} />
-          <span className="text-gray-800">Home</span>
+          <House size={20} className="text-gray-400 group-hover:text-[#ff5e00] transition-colors" />
+          <span className="text-sm font-bold text-gray-400 group-hover:text-white transition-colors">Home</span>
         </Link>
 
         <Link
           to={GroupHomePage}
-          className="hover:bg-gray-200 rounded-lg p-2 flex items-center gap-3 transition-all"
+          className="group hover:bg-[#1e1e1e] rounded-xl p-3 flex items-center gap-3 transition-all border border-transparent hover:border-[#262626]"
         >
-          <MessageSquareText size={18} />
-          Groups
+          <MessageSquareText size={20} className="text-gray-400 group-hover:text-[#ff5e00] transition-colors" />
+          <span className="text-sm font-bold text-gray-400 group-hover:text-white transition-colors">Groups</span>
         </Link>
+
         <Link
           to={DiscussionHomePage}
-          className="hover:bg-gray-200 rounded-lg p-2 flex items-center gap-3 transition-all"
+          className="group hover:bg-[#1e1e1e] rounded-xl p-3 flex items-center gap-3 transition-all border border-transparent hover:border-[#262626]"
         >
-          <MessageSquare size={18} />
-          Discussions
+          <MessageSquare size={20} className="text-gray-400 group-hover:text-[#ff5e00] transition-colors" />
+          <span className="text-sm font-bold text-gray-400 group-hover:text-white transition-colors">Discussions</span>
         </Link>
+
         <Link
           to={ResourceHomepage}
-          className="hover:bg-gray-200 rounded-lg p-2 flex items-center gap-3 transition-all"
+          className="group hover:bg-[#1e1e1e] rounded-xl p-3 flex items-center gap-3 transition-all border border-transparent hover:border-[#262626]"
         >
-          <Folder size={18} />
-          Resources
+          <Folder size={20} className="text-gray-400 group-hover:text-[#ff5e00] transition-colors" />
+          <span className="text-sm font-bold text-gray-400 group-hover:text-white transition-colors">Resources</span>
         </Link>
       </div>
-      <hr className="border-gray-400" />
-      <div className="flex flex-col gap-2 text-gray-800 font-semibold ml-14">
+
+      <div className="px-4 py-2">
+        <div className="h-px bg-[#262626] w-full" />
+      </div>
+
+      <div className="flex flex-col gap-1.5 px-2">
+        <label className="text-[10px] font-black text-gray-500 uppercase tracking-[0.2em] mb-2 ml-4">Support</label>
+        
         <Link
           to={AboutPage}
-          className="hover:bg-gray-200 rounded-lg p-2 flex items-center gap-3 transition-all"
+          className="group hover:bg-[#1e1e1e] rounded-xl p-3 flex items-center gap-3 transition-all border border-transparent hover:border-[#262626]"
         >
-          <Info />
-          About us
+          <Info size={20} className="text-gray-400 group-hover:text-[#ff5e00] transition-colors" />
+          <span className="text-sm font-bold text-gray-400 group-hover:text-white transition-colors">About Us</span>
         </Link>
         <Link
           to={ContactPage}
-          className="hover:bg-gray-200 rounded-lg p-2 flex items-center gap-3 transition-all"
+          className="group hover:bg-[#1e1e1e] rounded-xl p-3 flex items-center gap-3 transition-all border border-transparent hover:border-[#262626]"
         >
-          <Mail />
-          Contact us
+          <Mail size={20} className="text-gray-400 group-hover:text-[#ff5e00] transition-colors" />
+          <span className="text-sm font-bold text-gray-400 group-hover:text-white transition-colors">Contact Us</span>
         </Link>
         <Link
           to={FeaturePage}
-          className="hover:bg-gray-200 rounded-lg p-2 flex items-center gap-3 transition-all"
+          className="group hover:bg-[#1e1e1e] rounded-xl p-3 flex items-center gap-3 transition-all border border-transparent hover:border-[#262626]"
         >
-          <Star />
-          Features
+          <Star size={20} className="text-gray-400 group-hover:text-[#ff5e00] transition-colors" />
+          <span className="text-sm font-bold text-gray-400 group-hover:text-white transition-colors">Features</span>
         </Link>
       </div>
-      <hr className="border-gray-400" />
-      <div className="flex flex-col gap-2 text-gray-800 font-semibold ml-14">
+
+      <div className="mt-auto px-4 pb-4">
         <button
           onClick={handleContributeButton}
-          className="hover:bg-gray-200 rounded-lg p-2 flex items-center gap-2 transition-all"
+          className="w-full bg-[#ff5e00] hover:bg-[#e65100] text-white font-black py-4 rounded-[1.5rem] flex items-center justify-center gap-2 shadow-lg shadow-orange-900/20 transition-all active:scale-95"
         >
-          <Plus />
+          <Plus size={20} strokeWidth={3} />
           Contribute
         </button>
       </div>

@@ -1,7 +1,10 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import authReducer from "../features/authSlice";
 import communityPostReducer from "../features/communityPostSlice";
+import groupReducer from "../features/groupSlice";
+import liveSyncReducer from "../features/liveSync/liveSyncSlice";
 import storage from "redux-persist/lib/storage";
+
 import {
   persistReducer,
   persistStore,
@@ -22,6 +25,8 @@ const persistConfig = {
 const rootReducer = combineReducers({
   auth: authReducer,
   communityPost: communityPostReducer,
+  groups: groupReducer,
+  liveSync: liveSyncReducer,
 });
 
 // 2. Create a persisted reducer
@@ -33,7 +38,7 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
-        ignoredActions: [FLUSH, PAUSE, PURGE, REGISTER], // Ignore persist actions
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER], // Ignore persist actions
       },
     }),
 });

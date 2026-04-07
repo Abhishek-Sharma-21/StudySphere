@@ -1,102 +1,66 @@
 const AboutUs = () => {
   return (
-    <div className="max-w-4xl mx-auto font-quicksand px-6 py-12">
-      <h2 className="text-4xl font-bold text-center mb-8">About StudySphere</h2>
+    <div className="max-w-5xl mx-auto font-quicksand px-8 py-16 bg-[#0a0a0a]">
+      <div className="text-center mb-20 relative group">
+        <h2 className="text-5xl font-black text-white uppercase tracking-tighter">
+          About <span className="text-[#ff5e00]">StudySphere</span>
+        </h2>
+        <p className="text-[10px] font-black text-gray-500 uppercase tracking-[0.3em] mt-3">Mission Protocol // Decentralized academic node</p>
+      </div>
 
-      <p className="text-gray-700 text-lg mb-10 text-center">
-        StudySphere is a modern collaborative learning platform built to connect
-        students, promote knowledge sharing, and create a strong academic
-        community. We believe that learning thrives in environments where ideas
-        are exchanged freely, resources are accessible to all, and collaboration
-        is at the heart of growth.
+      <p className="text-gray-400 text-lg mb-20 text-center font-bold leading-relaxed max-w-3xl mx-auto italic">
+        "StudySphere is a high-performance collaborative ecosystem engineered to unify academic assets, promote seamless knowledge synchronization, and establish a resilient scholarly network. We operate on the principle that multi-threaded learning thrives through open transmission and decentralized access."
       </p>
 
-      <div className="space-y-10">
-        <section>
-          <h3 className="text-2xl font-semibold mb-3">Our Vision</h3>
-          <p className="text-gray-600 leading-relaxed">
-            At StudySphere, we envision a future where students take charge of
-            their education by working together. Traditional course-based
-            platforms often limit creativity and interaction. We aim to break
-            those barriers and provide a space where learners from around the
-            world can connect, share knowledge, and collaborate without
-            restrictions.
-            <br />
-            <br />
-            We believe learning should be dynamic, inclusive, and constantly
-            evolving — just like the students who drive it.
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+        <section className="bg-[#161616] p-10 rounded-[3rem] border border-[#262626] shadow-xl relative group/section hover:border-[#ff5e00]/30 transition-all">
+          <div className="absolute top-8 left-0 w-1 h-8 bg-[#ff5e00]"></div>
+          <h3 className="text-xs font-black text-white uppercase tracking-[0.2em] mb-6 border-b border-[#262626] pb-4">Vision Architecture</h3>
+          <p className="text-gray-500 text-sm font-bold leading-relaxed">
+            We envision a paradigm shift where learners assume total control of their educational trajectory through integrated collaboration. Legacy frameworks often throttle innovation; StudySphere eliminates these bottlenecks, providing a global medium for knowledge exchange without latency or restriction.
           </p>
         </section>
 
-        <section>
-          <h3 className="text-2xl font-semibold mb-3">What We Offer</h3>
-          <p className="text-gray-600 leading-relaxed mb-4">
-            StudySphere is more than just a file-sharing tool. It's a complete
-            ecosystem designed to empower students with features like:
-          </p>
-          <ul className="list-disc list-inside text-gray-600 space-y-2">
-            <li>
-              <strong>Resource Sharing:</strong> Upload and access study notes,
-              presentations, research papers, and important academic resources
-              anytime.
-            </li>
-            <li>
-              <strong>Study Groups:</strong> Form study circles based on
-              subjects, exams, or interests to collaborate effectively with
-              like-minded peers.
-            </li>
-            <li>
-              <strong>Live Collaboration:</strong> Work together on documents,
-              projects, or brainstorming sessions in real-time, from anywhere in
-              the world.
-            </li>
-            <li>
-              <strong>Discussion Forums:</strong> Engage in thoughtful
-              conversations, solve doubts, and share academic insights in an
-              open and supportive environment.
-            </li>
-            <li>
-              <strong>Community Growth:</strong> Participate in challenges,
-              contribute to shared knowledge pools, and build your academic
-              network organically.
-            </li>
+        <section className="bg-[#161616] p-10 rounded-[3rem] border border-[#262626] shadow-xl relative group/section hover:border-[#ff5e00]/30 transition-all">
+          <div className="absolute top-8 left-0 w-1 h-8 bg-[#ff5e00]"></div>
+          <h3 className="text-xs font-black text-white uppercase tracking-[0.2em] mb-6 border-b border-[#262626] pb-4">Operational Assets</h3>
+          <ul className="space-y-4">
+            {[
+              { label: "Resource Sync", desc: "Global access to prioritized academic data files." },
+              { label: "Cluster Nodes", desc: "Targeted collaboration hubs for specialized study." },
+              { label: "Real-time Link", desc: "Zero-latency synchronization for group projects." },
+              { label: "Discourse Feed", desc: "High-bandwidth exchange of scholarly insights." }
+            ].map((item, idx) => (
+              <li key={idx} className="flex gap-4 items-start">
+                <span className="text-[#ff5e00] font-black">//</span>
+                <div>
+                   <div className="text-[10px] font-black text-white uppercase tracking-widest">{item.label}</div>
+                   <div className="text-[10px] text-gray-500 font-bold uppercase mt-1">{item.desc}</div>
+                </div>
+              </li>
+            ))}
           </ul>
         </section>
 
-        <section>
-          <h3 className="text-2xl font-semibold mb-3">Our Story</h3>
-          <p className="text-gray-600 leading-relaxed">
-            StudySphere was founded by a group of students who realized that
-            true learning often happens outside the traditional classroom.
-            Frustrated with limited access to good resources and the lack of
-            collaborative tools, they set out to create a platform that
-            reflected the real needs of modern learners.
-            <br />
-            <br />
-            Today, StudySphere continues to grow as a student-first platform,
-            driven by feedback from the community and a passion for improving
-            the way students learn and connect.
+        <section className="bg-[#161616] p-10 rounded-[3rem] border border-[#262626] shadow-xl relative group/section hover:border-[#ff5e00]/30 transition-all flex flex-col justify-center">
+          <div className="absolute top-8 left-0 w-1 h-8 bg-[#ff5e00]"></div>
+          <h3 className="text-xs font-black text-white uppercase tracking-[0.2em] mb-6 border-b border-[#262626] pb-4">The Origin Packet</h3>
+          <p className="text-gray-500 text-sm font-bold leading-relaxed italic">
+            StudySphere was initialized by a collective of learners who identified critical failures in existing educational infrastructure. Driven by the necessity for accessible high-quality resources, they engineered a student-centric platform that adapts to the real-world demands of modern scholarship.
           </p>
         </section>
 
-        <section>
-          <h3 className="text-2xl font-semibold mb-3">Our Mission</h3>
-          <p className="text-gray-600 leading-relaxed">
-            Our mission is to democratize education by making it more
-            accessible, collaborative, and empowering for students everywhere.
-            We want to foster an environment where learning is a shared journey,
-            driven by community, curiosity, and collaboration.
+        <section className="bg-[#161616] p-10 rounded-[3rem] border border-[#262626] shadow-xl relative group/section border-l-4 border-l-[#ff5e00] flex flex-col justify-center">
+          <h3 className="text-xs font-black text-white uppercase tracking-[0.2em] mb-6 border-b border-[#262626] pb-4">Primary Directive</h3>
+          <p className="text-gray-400 text-sm font-black leading-relaxed">
+            Our directive: Democratize knowledge access through decentralized, collaborative, and empowering frameworks. We are committed to fostering an environment where scholarship is a collective evolution, powered by community intelligence and relentless curiosity.
           </p>
-        </section>
-
-        <section>
-          <h3 className="text-2xl font-semibold mb-3">Join Us</h3>
-          <p className="text-gray-600 leading-relaxed">
-            Whether you're preparing for an exam, working on a group project, or
-            simply seeking to deepen your understanding of a topic, StudySphere
-            is here for you. Join our community today and become part of a
-            movement that's redefining the future of education — together.
-          </p>
+          <div className="mt-8 pt-8 border-t border-[#262626] flex items-center justify-between">
+             <span className="text-[10px] font-black text-[#ff5e00] uppercase tracking-widest">Join the Network</span>
+             <div className="w-12 h-1 bg-[#ff5e00]/20 rounded-full overflow-hidden">
+                <div className="w-1/2 h-full bg-[#ff5e00] animate-pulse"></div>
+             </div>
+          </div>
         </section>
       </div>
     </div>
